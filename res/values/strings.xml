@@ -2,4 +2,5 @@
 <resources>
     <string name="hello">Hello World, HelloAndroid!</string>
     <string name="app_name"></string>
+    <string name="detailstab">This is the Details tab</string>
 </resources>

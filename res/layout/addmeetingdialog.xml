@@ -2,21 +2,27 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:orientation="vertical" android:layout_width="fill_parent"
 	android:layout_height="fill_parent">
-    <TextView android:id="@+id/dateDisplay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""/>
-    <Button android:id="@+id/pickDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Change the date"/>
+	<TextView android:id="@+id/dateDisplay" android:layout_width="wrap_content"
+		android:layout_height="wrap_content" android:text="Date" />
+	<Button android:id="@+id/pickDate" android:layout_width="wrap_content"
+		android:layout_height="wrap_content" android:text="Change the date" />
+	<TextView android:id="@+id/TimeDisplay" android:layout_width="wrap_content"
+		android:layout_height="wrap_content" android:text="Time" />
+	<Button android:id="@+id/pickTime" android:layout_width="wrap_content"
+		android:layout_height="wrap_content" android:text="Change the time" />
 
 
 	<EditText android:id="@+id/edittext" android:layout_width="fill_parent"
-		android:layout_height="wrap_content" />
-	<Button android:id="@+id/okButton" android:layout_width="wrap_content"
-		android:layout_height="wrap_content" android:padding="10dp" android:text="OK"/>
-	<Button android:id="@+id/cancelButton" android:layout_width="wrap_content"
-		android:layout_height="wrap_content" android:padding="10dp" android:text="Cancel"/>
+		android:layout_height="wrap_content" android:minLines="5" />
 
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		android:orientation="horizontal" android:layout_width="fill_parent"
+		android:layout_height="fill_parent">
+		<Button android:id="@+id/okButton" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:padding="10dp"
+			android:text="OK" />
+		<Button android:id="@+id/cancelButton" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:padding="10dp"
+			android:text="Cancel" />
+	</LinearLayout>
 </LinearLayout>

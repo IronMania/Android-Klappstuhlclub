@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.widget.TabHost;
 
 
-//main App
+//main App for creating Tabs
 public class HelloAndroid extends TabActivity {
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
@@ -46,6 +46,6 @@ public class HelloAndroid extends TabActivity {
 	                  .setContent(intent);
 	    tabHost.addTab(spec);
 
-	    tabHost.setCurrentTab(2);
+	    tabHost.setCurrentTab(0);
 	}
 }

@@ -28,15 +28,17 @@ public final class R {
         public static final int questionmark=0x7f02000e;
     }
     public static final class id {
-        public static final int add_meeting=0x7f060007;
-        public static final int cancelButton=0x7f060004;
+        public static final int TimeDisplay=0x7f060002;
+        public static final int add_meeting=0x7f060009;
+        public static final int cancelButton=0x7f060006;
         public static final int dateDisplay=0x7f060000;
-        public static final int edittext=0x7f060002;
-        public static final int help=0x7f060008;
-        public static final int mapview=0x7f060006;
-        public static final int okButton=0x7f060003;
+        public static final int edittext=0x7f060004;
+        public static final int help=0x7f06000a;
+        public static final int mapview=0x7f060008;
+        public static final int okButton=0x7f060005;
         public static final int pickDate=0x7f060001;
-        public static final int textview=0x7f060005;
+        public static final int pickTime=0x7f060003;
+        public static final int textview=0x7f060007;
     }
     public static final class layout {
         public static final int addmeetingdialog=0x7f030000;

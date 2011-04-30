@@ -16,6 +16,7 @@ public class MapItemOverlay extends ItemizedOverlay {
 	private List<OverlayItem> items;
 	private Drawable marker;
  
+	//constructor
 	public MapItemOverlay(Drawable defaultMarker) {
 		super(defaultMarker);
 		items = new ArrayList<OverlayItem>();
@@ -43,10 +44,11 @@ public class MapItemOverlay extends ItemizedOverlay {
 	@Override
 	public void draw(Canvas canvas, MapView mapView, boolean shadow) {
 		super.draw(canvas, mapView, shadow);
-		boundCenterBottom(marker);
+		boundCenterBottom(marker); //defining position of marker/pic
  
 	}
- 
+	
+	//adding overlay item to the List
 	public void addItem(OverlayItem item) {
 		items.add(item);
 		populate();

@@ -20,13 +20,14 @@ public class Map extends MapActivity  {
 		
 		
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.map);
+        setContentView(R.layout.map); //use map.xml Layout
 		mapView = (MapView) findViewById(R.id.mapview);
-		mapView.setBuiltInZoomControls(true);
+		mapView.setBuiltInZoomControls(true); //add Zoomcontrols
 		mc = mapView.getController();
-		startup();
+		startup(); //created a new startup method for other classes
     }
 	
+	//startup method for other classes
 	public void startup(){
 		
 	}
@@ -42,6 +43,8 @@ public class Map extends MapActivity  {
 	public MapController getMc() {
 		return mc;
 	}
+	
+	//calculate a GeoPoint from latidue or longitude
 	public GeoPoint calculateGeoPoint(double lat ,double lng ){
 		GeoPoint gp = new GeoPoint((int)(lat * 1E6), (int)(lng * 1E6));
 		return gp;

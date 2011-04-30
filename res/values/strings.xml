@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="hello">Hello World, HelloAndroid!</string>
-    <string name="app_name"></string>
+    <string name="app_name">Klappstuhlclub</string>
     <string name="detailstab">This is the Details tab</string>
+    <string name="routetab">This is the Route tab</string>
+    <string name="newtab">This is the New tab</string>
 </resources>

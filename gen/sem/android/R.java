@@ -11,19 +11,33 @@ public final class R {
     public static final class attr {
     }
     public static final class drawable {
-        public static final int ic_tab_artists_grey=0x7f020000;
-        public static final int ic_tab_artists_white=0x7f020001;
-        public static final int ic_tab_details=0x7f020002;
-        public static final int ic_tab_new=0x7f020003;
-        public static final int ic_tab_route=0x7f020004;
-        public static final int icon=0x7f020005;
+        public static final int cb_scout_sprite_api_002=0x7f020000;
+        public static final int ic_tab_artists_grey=0x7f020001;
+        public static final int ic_tab_artists_white=0x7f020002;
+        public static final int ic_tab_details=0x7f020003;
+        public static final int ic_tab_new=0x7f020004;
+        public static final int ic_tab_route=0x7f020005;
+        public static final int icon=0x7f020006;
+        public static final int klapp=0x7f020007;
+        public static final int klappstuhl=0x7f020008;
+        public static final int person=0x7f020009;
+    }
+    public static final class id {
+        public static final int mapview=0x7f050001;
+        public static final int textview=0x7f050000;
     }
     public static final class layout {
-        public static final int main=0x7f030000;
+        public static final int details=0x7f030000;
+        public static final int main=0x7f030001;
+        public static final int map=0x7f030002;
+        public static final int news=0x7f030003;
+        public static final int route=0x7f030004;
     }
     public static final class string {
         public static final int app_name=0x7f040001;
         public static final int detailstab=0x7f040002;
         public static final int hello=0x7f040000;
+        public static final int newtab=0x7f040004;
+        public static final int routetab=0x7f040003;
     }
 }

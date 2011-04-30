@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Hello World, HelloAndroid!</string>
-    <string name="app_name">Klappstuhlclub</string>
-    <string name="detailstab">This is the Details tab</string>
-    <string name="routetab">This is the Route tab</string>
-    <string name="newtab">This is the New tab</string>
+	<string name="hello">Hello World, HelloAndroid!</string>
+	<string name="app_name">Klappstuhlclub</string>
+	<string name="detailstab">This is the Details tab</string>
+	<string name="routetab">This is the Route tab</string>
+	<string name="newtab">This is the New tab</string>
+	<string name="apikey">0kxca8BttEpnGV1nTcBEpQbQDwSNMlyaduhSaMw</string>
+	<string name="help">Help</string>
+	<string name="add_Meeting">new Meeting</string>
+	<string name="hello_add_dialog">Please insert the details for the next Klappstuhlclubmeeting!!</string>
+	<string name="open">open</string>
 </resources>

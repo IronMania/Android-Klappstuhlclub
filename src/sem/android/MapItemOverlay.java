@@ -1,56 +1,55 @@
 package sem.android;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import android.app.AlertDialog;
-import android.content.Context;
+
+import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 
 import com.google.android.maps.ItemizedOverlay;
+import com.google.android.maps.MapView;
 import com.google.android.maps.OverlayItem;
 
 @SuppressWarnings("rawtypes")
 public class MapItemOverlay extends ItemizedOverlay {
-	private ArrayList<OverlayItem> mOverlays = new ArrayList<OverlayItem>();
-	private Context mContext ;
-	
-	public void clear(){
-		mOverlays.clear();
-		
-	}
-	
-	public MapItemOverlay(Drawable defaultMarker, Context context) {
-		  super(boundCenterBottom(defaultMarker));
-		  mContext = context;
-
-		// TODO Auto-generated constructor stub
-	}
+	private List<OverlayItem> items;
+	private Drawable marker;
+ 
 	public MapItemOverlay(Drawable defaultMarker) {
-		  super(boundCenterBottom(defaultMarker));
-		}
-	
-	public void addOverlay(OverlayItem overlay) {
-	    mOverlays.add(overlay);
-	    populate();
+		super(defaultMarker);
+		items = new ArrayList<OverlayItem>();
+		marker = defaultMarker;
 	}
-	
+ 
 	@Override
-	protected OverlayItem createItem(int i) {
-	  return mOverlays.get(i);
+	protected OverlayItem createItem(int index) {
+		return (OverlayItem)items.get(index);
 	}
-
+ 
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		return mOverlays.size();
+		return items.size();
+ 
 	}
+ 
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see
+	 * com.google.android.maps.ItemizedOverlay#draw(android.graphics.Canvas,
+	 * com.google.android.maps.MapView, boolean)
+	 */
 	@Override
-	protected boolean onTap(int index) {
-	  OverlayItem item = mOverlays.get(index);
-	  AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
-	  dialog.setTitle(item.getTitle());
-	  dialog.setMessage(item.getSnippet());
-	  dialog.show();
-	  return true;
+	public void draw(Canvas canvas, MapView mapView, boolean shadow) {
+		super.draw(canvas, mapView, shadow);
+		boundCenterBottom(marker);
+ 
 	}
+ 
+	public void addItem(OverlayItem item) {
+		items.add(item);
+		populate();
+	}
+ 
 }

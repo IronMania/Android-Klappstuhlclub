@@ -1,7 +1,7 @@
 package sem.android;
 
-import java.sql.Date;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import com.google.android.maps.GeoPoint;
@@ -33,17 +33,18 @@ import android.widget.Toast;
 
 public class NewActivity extends MapActivity implements OnClickListener {
 	// for geopoints
-	MapView mapView;
-	MapController mc;
-	GeoPoint newMeetingPoint;
+	private MapView mapView;
+	@SuppressWarnings("unused")
+	private MapController mc;
+	private GeoPoint newMeetingPoint;
 
 	// for my Overlay Icon
-	List<Overlay> mapOverlays;
-	Drawable drawable;
-	MapOverlay itemizedOverlay;
+	private List<Overlay> mapOverlays;
+	private Drawable drawable;
+	private MapOverlay itemizedOverlay;
 
 	// for dialog box, which pops up when adding KlappstuhlclubMeetings
-	private Dialog dialog;
+//	private Dialog dialog;
 	private Button buttonOk;
 	private Button buttonCancel;
 	private EditText editText;
@@ -82,39 +83,7 @@ public class NewActivity extends MapActivity implements OnClickListener {
 		newMeetingPoint = new GeoPoint((int) (lat * 1E6), (int) (lng * 1E6));
 		drawSelectedGeopoint();
 
-		// creating the MeetingDialog
-		dialog = new Dialog(this);
-		dialog.setContentView(R.layout.addmeetingdialog); //set Layout
-
-		// getting Buttons and Boxes as Objects (from the inputForm)
-		mDateDisplay = (TextView) dialog.findViewById(R.id.dateDisplay);
-		mTimeDisplay = (TextView) dialog.findViewById(R.id.TimeDisplay);
-		buttonOk = (Button) dialog.findViewById(R.id.okButton);
-		buttonCancel = (Button) dialog.findViewById(R.id.cancelButton);
-		buttonPickDate = (Button) dialog.findViewById(R.id.pickDate);
-		buttonPickTime = (Button) dialog.findViewById(R.id.pickTime);
-		editText = (EditText) dialog.findViewById(R.id.edittext);
-
-		// listener for all Buttons
-		buttonOk.setOnClickListener(this);
-		buttonCancel.setOnClickListener(this);
-		buttonPickDate.setOnClickListener(this);
-		buttonPickTime.setOnClickListener(this);
-
-		// get the current date
-		final Calendar c = Calendar.getInstance();
-		mYear = c.get(Calendar.YEAR);
-		mMonth = c.get(Calendar.MONTH);
-		mDay = c.get(Calendar.DAY_OF_MONTH);
-
-		// get the current time
-		mHour = c.get(Calendar.HOUR_OF_DAY);
-		mMinute = c.get(Calendar.MINUTE);
-
-		// // display the current date and Time to the corresponding fields
-		updateDateDisplay();
-		updateTimeDisplay();
-	}
+			}
 
 	// updates the date in the TextView
 	private void updateDateDisplay() {
@@ -170,7 +139,6 @@ public class NewActivity extends MapActivity implements OnClickListener {
 		itemizedOverlay.addItem(overlayitem);
 		mapOverlays.add(itemizedOverlay); //add Overlayitem to Overlay array
 		mapView.invalidate(); //draw the overlays again
-
 	}
 
 	@Override
@@ -238,9 +206,43 @@ public class NewActivity extends MapActivity implements OnClickListener {
 
 	@Override
 	protected Dialog onCreateDialog(int id) {
+		Dialog dialog;
 		switch (id) {
 		//dialog for adding Meeting
 		case ADD_MEETING_DIALOG_ID:
+			// creating the MeetingDialog
+			dialog = new Dialog(this);
+			dialog.setContentView(R.layout.addmeetingdialog); //set Layout
+
+			// getting Buttons and Boxes as Objects (from the inputForm)
+			mDateDisplay = (TextView) dialog.findViewById(R.id.dateDisplay);
+			mTimeDisplay = (TextView) dialog.findViewById(R.id.TimeDisplay);
+			buttonOk = (Button) dialog.findViewById(R.id.okButton);
+			buttonCancel = (Button) dialog.findViewById(R.id.cancelButton);
+			buttonPickDate = (Button) dialog.findViewById(R.id.pickDate);
+			buttonPickTime = (Button) dialog.findViewById(R.id.pickTime);
+			editText = (EditText) dialog.findViewById(R.id.edittext);
+
+			// listener for all Buttons
+			buttonOk.setOnClickListener(this);
+			buttonCancel.setOnClickListener(this);
+			buttonPickDate.setOnClickListener(this);
+			buttonPickTime.setOnClickListener(this);
+
+			// get the current date
+			final Calendar c = Calendar.getInstance();
+			mYear = c.get(Calendar.YEAR);
+			mMonth = c.get(Calendar.MONTH);
+			mDay = c.get(Calendar.DAY_OF_MONTH);
+
+			// get the current time
+			mHour = c.get(Calendar.HOUR_OF_DAY);
+			mMinute = c.get(Calendar.MINUTE);
+
+			// // display the current date and Time to the corresponding fields
+			updateDateDisplay();
+			updateTimeDisplay();
+
 			dialog.show();
 			return null;
 			
@@ -262,12 +264,13 @@ public class NewActivity extends MapActivity implements OnClickListener {
 		// TODO Auto-generated method stub
 		if (v == buttonPickDate)
 			showDialog(DATE_DIALOG_ID); 
-		if (v == buttonCancel) dialog.dismiss();
+		if (v == buttonCancel) showDialog(4);
 		if (v == buttonOk) {
+			
 			txtNextMeeting = editText.getText().toString();// TODO convert
 															// editText to
 															// String
-			dialog.dismiss();
+			showDialog(4);
 			sendmeeting();
 		}
 		if (v == buttonPickTime)
@@ -276,17 +279,14 @@ public class NewActivity extends MapActivity implements OnClickListener {
 	}
 
 	//just to sum everything up for sending it
+	@SuppressWarnings("unused")
 	protected void sendmeeting() {
 		// preparing everything to send
-		Calendar meetingTime = Calendar.getInstance();
-		Date sendDate = new Date(mYear, mMonth, mDay);
-		sendDate.setHours(mHour);
-		sendDate.setMinutes(mMinute);
-
+		GregorianCalendar meetingTime = new GregorianCalendar(mYear, mMonth, mDay, mHour, mMinute, 0);
+		
 		// TODO these 2 Strings require Sending
-		@SuppressWarnings("unused")
 		String sendString = txtNextMeeting;
-		meetingTime.setTime(sendDate);
+		sparqlApi test = new sparqlApi(this);
 
 	}
 }

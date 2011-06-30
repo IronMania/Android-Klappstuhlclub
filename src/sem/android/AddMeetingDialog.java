@@ -3,8 +3,10 @@ package sem.android;
 import java.sql.Date;
 import java.util.Calendar;
 
+import com.google.android.maps.GeoPoint;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
+
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;

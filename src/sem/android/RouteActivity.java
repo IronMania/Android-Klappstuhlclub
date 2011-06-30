@@ -23,11 +23,12 @@ public class RouteActivity extends Map {
 	private LocationManager locManager;
 	private LocationListener locListener;
 	private GeoPoint nextMeeting= null; //geopoint for next Meeting
+	private sparqlApi endPoint;
 
-
-	@Override
+		@Override
 	public void startup() {
 		myMap = getMapView(); //save current mapview
+		endPoint = new sparqlApi();
 		initLocationManager();
 		
 	}

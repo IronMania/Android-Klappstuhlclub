@@ -286,7 +286,8 @@ public class NewActivity extends MapActivity implements OnClickListener {
 		
 		// TODO these 2 Strings require Sending
 		String sendString = txtNextMeeting;
-		sparqlApi test = new sparqlApi(this);
+		sparqlApi test = new sparqlApi();
+		//newMeetingPoint;
 
 	}
 }

@@ -1,0 +1,43 @@
+@prefix rdf:	<http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix ns1:	<http://klappstuhlclub.de/ontology/> .
+<http://www.klappstuhlclub.de/wp/posts/23-treffen-leipzig>	rdf:type	ns1:Treffen .
+@prefix rdfs:	<http://www.w3.org/2000/01/rdf-schema#> .
+<http://www.klappstuhlclub.de/wp/posts/23-treffen-leipzig>	rdfs:label	"23. Treffen Leipzig"@de ;
+	rdfs:comment	"Wir treffen uns an einem wirklich sch?nen Ort."@de .
+@prefix xsd:	<http://www.w3.org/2001/XMLSchema#> .
+@prefix ns4:	<http://www.w3.org/2002/12/cal#> .
+<http://www.klappstuhlclub.de/wp/posts/23-treffen-leipzig>	ns4:dtstart	"2009-04-27T21:00:00+02:00"^^xsd:date .
+@prefix ns5:	<http://xmlns.com/foaf/spec/#> .
+<http://www.klappstuhlclub.de/wp/posts/23-treffen-leipzig>	ns5:depiction	<https://lh3.googleusercontent.com/_K49BHAgLb6s/TZn6InnzYEI/AAAAAAAAAY4/m1YneUbTNTg/s512/IMG_1456.JPG> ,
+		<https://lh3.googleusercontent.com/_K49BHAgLb6s/TZn6OtIXGSI/AAAAAAAAAZE/skMxWa1k_9A/s640/IMG_1459.JPG> .
+@prefix geo:	<http://www.w3.org/2003/01/geo/wgs84_pos#> .
+<http://www.klappstuhlclub.de/wp/posts/23-treffen-leipzig>	geo:lat	"51.331463" ;
+	geo:long	"12.372783" .
+@prefix ns7:	<http://www.klappstuhlclub.de/wp/posts/> .
+<http://www.klappstuhlclub.de/wp/posts/23-treffen-leipzig>	ns1:anwesend	ns7:wolf ,
+		ns7:steffka .
+<http://www.klappstuhlclub.de/wp/posts/245-treffen-leipzig>	rdf:type	ns1:Treffen ;
+	rdfs:label	"245. Treffen Leipzig"@de ;
+	rdfs:comment	"Wir treffen uns an einem wirklich sch?nen Ort."@de ;
+	ns4:dtstart	"20011-04-27T21:00:00+02:00"^^xsd:date ;
+	ns5:depiction	<https://lh3.googleusercontent.com/_K49BHAgLb6s/TZn6OtIXGSI/AAAAAAAAAZE/skMxWa1k_9A/s640/IMG_1459.JPG> ;
+	geo:lat	"51.333463" ;
+	geo:long	"12.362783" ;
+	ns1:anwesend	ns7:wolf ,
+		ns7:steffka ,
+		ns7:joerg .
+ns7:joerg	rdf:type	ns1:Klapper ;
+	rdfs:label	"J?rg" ;
+	ns5:depiction	<http://bis.informatik.uni-leipzig.de/images/jpegPhoto.php?name=sn&value=unbehauen> ;
+	ns5:name	"J?rg" .
+<http://www.klappstuhlclub.de/wp/posts/145-treffen-berlin>	rdf:type	ns1:Treffen ;
+	rdfs:label	"145. Treffen Leipzig"@de ;
+	rdfs:comment	"Wir treffen uns an einem wirklich sch?nen Ort."@de ;
+	ns4:dtstart	"2011-04-27T21:00:00+02:00"^^xsd:date ;
+	ns5:depiction	<https://lh3.googleusercontent.com/_K49BHAgLb6s/TZn6InnzYEI/AAAAAAAAAY4/m1YneUbTNTg/s512/IMG_1456.JPG> ;
+	geo:lat	"50.331463" ;
+	geo:long	"9.372783" ;
+	ns1:anwesend	ns7:fred ,
+		ns7:peter ,
+		ns7:laura .
+<test_s>	<test_p>	<test_o> .

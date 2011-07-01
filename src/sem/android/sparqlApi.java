@@ -1,23 +1,17 @@
 package sem.android;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
-
-import android.content.Context;
 
 import com.hp.hpl.jena.rdf.model.Literal;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.Property;
+import com.hp.hpl.jena.rdf.model.RDFNode;
 import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.util.FileManager;
-import com.hp.hpl.jena.vocabulary.RDFS;
-import com.hp.hpl.jena.vocabulary.VCARD;
 import com.hp.hpl.jena.datatypes.xsd.*;
+import com.hp.hpl.jena.query.* ;
 
 public class sparqlApi{
 	
@@ -33,9 +27,12 @@ public class sparqlApi{
 
 		 //loadOnlineModel();
 		 loadDummyModel();
+		 getNextMeeting();
+		 getNextMeeting();
 		 
 	}
 	
+	@SuppressWarnings("unused")
 	private void loadOnlineModel()
 	{
 		// use the FileManager to find the input file
@@ -56,16 +53,16 @@ public class sparqlApi{
 		rdfGraph = ModelFactory.createDefaultModel();
 		
 		// some definitions
-		String latitude     = "51.339647";
-		String longitude     = "12.371285";
+		String latitude     = "12.377937";
+		String longitude     = "51.336939";
 		createMeeting(longitude, latitude, Calendar.getInstance(),"Testmeeting");
 
 		rdfGraph.write(System.out);
 		meetingNumber ++;
 
 		// some definitions
-		latitude     = "51.336939";
-		longitude     = "12.377937";
+		latitude     = "12.377937";
+		longitude     = "51.336939";
 		createMeeting(longitude, latitude, Calendar.getInstance(),"Testmeeting2");
 
 		rdfGraph.write(System.out);
@@ -89,8 +86,9 @@ public class sparqlApi{
 		 
 		 
 		 //adding the Date
-		 Literal lDate = rdfGraph.createTypedLiteral(date);
-		 Property pDate = rdfGraph.createProperty(URI + "MeetingDate");
+		 XSDDateTime xsdDate = new XSDDateTime(date);
+		 Literal lDate = rdfGraph.createTypedLiteral(xsdDate);
+		 Property pDate = rdfGraph.createProperty(URI + "startDate");
 		 rdfGraph.add(meeting ,pDate, lDate);
 		 
 		 //adding the meeting Text
@@ -98,8 +96,52 @@ public class sparqlApi{
 		 
 	}
 	
-	public void getNextMeeting()
+	@SuppressWarnings("unused")
+	public MessageMeeting getNextMeeting()
 	{
-		
+		MessageMeeting msg = new MessageMeeting();
+		  String queryString = "select distinct ?meeting ?startDate ?longitude ?latitude where {?meeting <http://klappstuhlclub.de/startDate> ?startDate . ?meeting <http://klappstuhlclub.de/longitude> ?longitude . ?meeting <http://klappstuhlclub.de/longitude> ?latitude} ORDER BY DESC(?startDate) LIMIT 1" ;
+		  Query query = QueryFactory.create(queryString) ;
+		  QueryExecution qexec = QueryExecutionFactory.create(query, rdfGraph) ;
+		  try {
+		    ResultSet results = qexec.execSelect() ;
+		    for ( ; results.hasNext() ; )
+		    {
+		      QuerySolution soln = results.nextSolution() ;
+		      RDFNode x = soln.get("?meeting") ;       // Get a result variable by name.
+		      Literal l = soln.getLiteral("?startDate") ;   // Get a result variable - must be a literal
+//		      XSDDatatype test = new Baset
+//		      XSDDateTime time = new XSDDateTime(l.toString(), XSDDateTime.FULL_MASK);
+//		      TODO: msg.setDate(time.asCalendar());
+		      msg.setLongitude(soln.getLiteral("?longitude").getFloat());
+		      msg.setLatitude(soln.getLiteral("?latitude").getFloat());
+		    }
+		  } finally { qexec.close() ; }
+		//TODO: return a Meeting and add the text to the query string
+		  return msg;
+	}
+	
+	public int getLastMeetingIndex()
+	{
+		  String queryString = "select distinct ?a ?b where {?a <http://klappstuhlclub.de/startDate> ?b} ORDER BY DESC(?b) LIMIT 1" ;
+		  Query query = QueryFactory.create(queryString) ;
+		  QueryExecution qexec = QueryExecutionFactory.create(query, rdfGraph) ;
+		  RDFNode lastMeeting;
+		  try {
+		    ResultSet results = qexec.execSelect() ;
+		    for ( ; results.hasNext() ; )
+		    {
+		      QuerySolution soln = results.nextSolution() ;
+		      RDFNode x = soln.get("?a") ;       // Get a result variable by name.
+		      lastMeeting = x;
+			  String a[] = lastMeeting.toString().split("/");
+			  return Integer.parseInt( a[ a.length]);
+//		      Resource r = soln.getResource("VarR") ; // Get a result variable - must be a resource
+//		      Literal l = soln.getLiteral("?b") ;   // Get a result variable - must be a literal
+		    }
+		  } finally { qexec.close() ; }
+//		  String a[] = lastMeeting.toString().split("/");
+//		  return Integer.parseInt( a[ a.length]);
+		return 0;
 	}
 }

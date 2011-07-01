@@ -17,43 +17,50 @@ import com.google.android.maps.OverlayItem;
 
 //first Tab. for navigation to next meeting place
 public class RouteActivity extends Map {
-	
-	
+
+
 	private MapView myMap; //mapview of current screen
 	private LocationManager locManager;
 	private LocationListener locListener;
 	private GeoPoint nextMeeting= null; //geopoint for next Meeting
 	private sparqlApi endPoint;
 
-		@Override
+	@Override
 	public void startup() {
 		myMap = getMapView(); //save current mapview
-		endPoint = new sparqlApi();
+		//endPoint = new sparqlApi();
+		new Runnable() {
+
+
+			public void run() {
+				endPoint = new sparqlApi();
+			}
+		}.run();
 		initLocationManager();
-		
+
 	}
 
-	
+
 	/**
 	 * Initialise the location manager.
 	 * required for updating the location via GPS
 	 */
 	private void initLocationManager() {
 		locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE); //creat new Location manager
- //listen to the GPS signal of the Mobile
+		//listen to the GPS signal of the Mobile
 		locListener = new LocationListener() { 
 			public void onLocationChanged(Location newLocation) {
 				createAndShowMyItemizedOverlay(newLocation); //update the Overlay of the position
 			}
- 			public void onProviderDisabled(String arg0) {} 
+			public void onProviderDisabled(String arg0) {} 
 			public void onProviderEnabled(String arg0) {} 
 			public void onStatusChanged(String arg0, int arg1, Bundle arg2) {}
 		};
 		locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0,
 				locListener);//enabling new requests of the listener
- 
+
 	}
-	
+
 	/**
 	 * This method will be called whenever a change of the current position
 	 * is submitted via the GPS.
@@ -61,7 +68,7 @@ public class RouteActivity extends Map {
 	 */
 	protected void createAndShowMyItemizedOverlay(Location newLocation) {
 		List<Overlay> overlays = myMap.getOverlays(); //create a list with Overlays
- 
+
 		// first remove old overlay
 		if (overlays.size() > 0) {
 			for (Iterator<Overlay> iterator = overlays.iterator(); iterator.hasNext();) {
@@ -69,35 +76,35 @@ public class RouteActivity extends Map {
 				iterator.remove();
 			}
 		}
- 
+
 		// transform the location to a geopoint
 		GeoPoint geopoint = new GeoPoint(
 				(int) (newLocation.getLatitude() * 1E6), (int) (newLocation
 						.getLongitude() * 1E6));
- 
+		
 		// initialize icon
 		Drawable icon = getResources().getDrawable(R.drawable.person);
 		icon.setBounds(0, 0, icon.getIntrinsicWidth(), icon
 				.getIntrinsicHeight());
- 
+
 		// create my overlay and show it
 		MapItemOverlay overlay = new MapItemOverlay(icon);
 		OverlayItem item = new OverlayItem(geopoint, "My Location", null);
 		overlay.addItem(item);
 		myMap.getOverlays().add(overlay);
-		
+
 		// move to location
 		myMap.getController().animateTo(geopoint);
-		
+
 		drawNextMeeting();
 		// redraw map
 		myMap.postInvalidate();
 	}
-	
+
 	//draw the next meeting
 	protected void drawNextMeeting(){
 		if (nextMeeting==null) nextMeeting = findNextMeeting(); //if there is no meeting, get new one
-		
+
 		// create my overlay and show it
 		Drawable icon = getResources().getDrawable(R.drawable.klapp); //get klappstuhl icon
 		MapItemOverlay overlay = new MapItemOverlay(icon); //add Icon to Overlay
@@ -105,11 +112,18 @@ public class RouteActivity extends Map {
 		overlay.addItem(item); 
 		myMap.getOverlays().add(overlay); //draw new position on the map
 	}
-	
-	
+
+
 	//TODO apply code for finding Meetings
 	protected GeoPoint findNextMeeting(){
+		MessageMeeting msg;
+		if (endPoint!= null ){
+			msg = endPoint.getNextMeeting();
+			return new GeoPoint((int) (msg.getLatitude() * 1E6), (int) (msg.getLongitude() * 1E6));
+		}
+		
 		GeoPoint geopoint = new GeoPoint(38422006, -122084095);
 		return geopoint;
+		
 	}
 }

@@ -53,16 +53,16 @@ public class sparqlApi{
 		rdfGraph = ModelFactory.createDefaultModel();
 		
 		// some definitions
-		String latitude     = "12.377937";
-		String longitude     = "51.336939";
+		String latitude     = "51.336939";
+		String longitude     = "12.377937";
 		createMeeting(longitude, latitude, Calendar.getInstance(),"Testmeeting");
 
 		rdfGraph.write(System.out);
 		meetingNumber ++;
 
 		// some definitions
-		latitude     = "12.377937";
-		longitude     = "51.336939";
+		latitude     = "51.336939";
+		longitude     = "12.377937";
 		createMeeting(longitude, latitude, Calendar.getInstance(),"Testmeeting2");
 
 		rdfGraph.write(System.out);
@@ -81,8 +81,8 @@ public class sparqlApi{
 		// add the property for Coordinates
 		Property lon = rdfGraph.createProperty(URI + "longitude");
 		Property lat = rdfGraph.createProperty(URI + "latitude");
-		meeting.addProperty(lon, longitude);
-		 meeting.addProperty(lat, latitude);
+		meeting.addProperty(lon, longitude.toString());
+		 meeting.addProperty(lat, latitude.toString());
 		 
 		 
 		 //adding the Date
@@ -100,7 +100,7 @@ public class sparqlApi{
 	public MessageMeeting getNextMeeting()
 	{
 		MessageMeeting msg = new MessageMeeting();
-		  String queryString = "select distinct ?meeting ?startDate ?longitude ?latitude where {?meeting <http://klappstuhlclub.de/startDate> ?startDate . ?meeting <http://klappstuhlclub.de/longitude> ?longitude . ?meeting <http://klappstuhlclub.de/longitude> ?latitude} ORDER BY DESC(?startDate) LIMIT 1" ;
+		  String queryString = "select distinct ?meeting ?startDate ?longitude ?latitude where {?meeting <http://klappstuhlclub.de/startDate> ?startDate . ?meeting <http://klappstuhlclub.de/longitude> ?longitude . ?meeting <http://klappstuhlclub.de/latitude> ?latitude} ORDER BY DESC(?startDate) LIMIT 1" ;
 		  Query query = QueryFactory.create(queryString) ;
 		  QueryExecution qexec = QueryExecutionFactory.create(query, rdfGraph) ;
 		  try {
@@ -113,8 +113,8 @@ public class sparqlApi{
 //		      XSDDatatype test = new Baset
 //		      XSDDateTime time = new XSDDateTime(l.toString(), XSDDateTime.FULL_MASK);
 //		      TODO: msg.setDate(time.asCalendar());
-		      msg.setLongitude(soln.getLiteral("?longitude").getFloat());
-		      msg.setLatitude(soln.getLiteral("?latitude").getFloat());
+		      msg.setLongitude(soln.getLiteral("?longitude").getDouble());
+		      msg.setLatitude(soln.getLiteral("?latitude").getDouble());
 		    }
 		  } finally { qexec.close() ; }
 		//TODO: return a Meeting and add the text to the query string

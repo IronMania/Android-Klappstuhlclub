@@ -5,8 +5,8 @@ import java.util.*;
 public class MessageMeeting {
 
 	private String meetingText;
-	private float longitude;
-	private float latitude;
+	private double longitude;
+	private double latitude;
 	private Calendar date;
 	public String getMeetingText() {
 		return meetingText;
@@ -14,16 +14,16 @@ public class MessageMeeting {
 	public void setMeetingText(String meetingText) {
 		this.meetingText = meetingText;
 	}
-	public float getLongitude() {
+	public double getLongitude() {
 		return longitude;
 	}
-	public void setLongitude(float longitude) {
+	public void setLongitude(double longitude) {
 		this.longitude = longitude;
 	}
-	public float getLatitude() {
+	public double getLatitude() {
 		return latitude;
 	}
-	public void setLatitude(float latitude) {
+	public void setLatitude(double latitude) {
 		this.latitude = latitude;
 	}
 	public Calendar getDate() {

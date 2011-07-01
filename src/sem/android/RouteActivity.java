@@ -29,6 +29,9 @@ public class RouteActivity extends Map {
 	public void startup() {
 		myMap = getMapView(); //save current mapview
 		//endPoint = new sparqlApi();
+		
+	
+		
 		new Runnable() {
 
 
@@ -36,8 +39,8 @@ public class RouteActivity extends Map {
 				endPoint = new sparqlApi();
 			}
 		}.run();
+		
 		initLocationManager();
-
 	}
 
 
@@ -46,7 +49,7 @@ public class RouteActivity extends Map {
 	 * required for updating the location via GPS
 	 */
 	private void initLocationManager() {
-		locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE); //creat new Location manager
+		locManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE); //creat new Location manager
 		//listen to the GPS signal of the Mobile
 		locListener = new LocationListener() { 
 			public void onLocationChanged(Location newLocation) {
@@ -56,8 +59,11 @@ public class RouteActivity extends Map {
 			public void onProviderEnabled(String arg0) {} 
 			public void onStatusChanged(String arg0, int arg1, Bundle arg2) {}
 		};
-		locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0,
+		locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, 
 				locListener);//enabling new requests of the listener
+		Location lastLocation = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+		if (lastLocation != null)
+			createAndShowMyItemizedOverlay(lastLocation);
 
 	}
 

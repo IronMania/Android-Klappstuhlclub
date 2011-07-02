@@ -1,18 +1,21 @@
 package sem.android;
 
-import java.util.*;
+import java.util.Calendar;
 
 public class MessageMeeting {
 
-	private String meetingText;
+	private String meetingLabel;
+	private String meetingComment;
 	private double longitude;
 	private double latitude;
 	private Calendar date;
-	public String getMeetingText() {
-		return meetingText;
+	
+	
+	public String getMeetingComment() {
+		return meetingComment;
 	}
-	public void setMeetingText(String meetingText) {
-		this.meetingText = meetingText;
+	public void setMeetingComment(String meetingText) {
+		this.meetingComment = meetingText;
 	}
 	public double getLongitude() {
 		return longitude;
@@ -31,5 +34,11 @@ public class MessageMeeting {
 	}
 	public void setDate(Calendar date) {
 		this.date = date;
+	}
+	public String getMeetingLabel() {
+		return meetingLabel;
+	}
+	public void setMeetingLabel(String meetingNumber) {
+		this.meetingLabel = meetingNumber;
 	}
 }

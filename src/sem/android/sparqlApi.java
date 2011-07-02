@@ -15,7 +15,7 @@ import com.hp.hpl.jena.query.* ;
 
 public class sparqlApi{
 	
-	final static String RDF_URI = "http://139.18.2.172:8893/sparql";
+	final static String SPARQL_ENDPOINT = "http://139.18.2.172:8893/sparql";
 	private final String URI = "http://klappstuhlclub.de/"; 
 	int meetingNumber = 1;
 	private Model rdfGraph;
@@ -28,7 +28,6 @@ public class sparqlApi{
 		 //loadOnlineModel();
 		 loadDummyModel();
 		 getNextMeeting();
-		 getNextMeeting();
 		 
 	}
 	
@@ -36,10 +35,10 @@ public class sparqlApi{
 	private void loadOnlineModel()
 	{
 		// use the FileManager to find the input file
-				 InputStream in = FileManager.get().open( RDF_URI);
+				 InputStream in = FileManager.get().open( SPARQL_ENDPOINT);
 				 if (in == null) {
 					    throw new IllegalArgumentException(
-					                                 "File: " + RDF_URI + " not found");
+					                                 "File: " + SPARQL_ENDPOINT + " not found");
 					}
 
 					// read the RDF/XML file
@@ -96,27 +95,36 @@ public class sparqlApi{
 		 
 	}
 	
-	@SuppressWarnings("unused")
 	public MessageMeeting getNextMeeting()
 	{
 		MessageMeeting msg = new MessageMeeting();
-		  String queryString = "select distinct ?meeting ?startDate ?longitude ?latitude where {?meeting <http://klappstuhlclub.de/startDate> ?startDate . ?meeting <http://klappstuhlclub.de/longitude> ?longitude . ?meeting <http://klappstuhlclub.de/latitude> ?latitude} ORDER BY DESC(?startDate) LIMIT 1" ;
-		  Query query = QueryFactory.create(queryString) ;
-		  QueryExecution qexec = QueryExecutionFactory.create(query, rdfGraph) ;
+		  //String queryString = "select distinct ?meeting ?startDate ?longitude ?latitude where {?meeting <http://klappstuhlclub.de/startDate> ?startDate . ?meeting <http://klappstuhlclub.de/longitude> ?longitude . ?meeting <http://klappstuhlclub.de/latitude> ?latitude} ORDER BY DESC(?startDate) LIMIT 1" ;
+		String queryString = "select distinct ?label ?comment ?startdate ?latitude ?longitude from <http://klappstuhlclub.de/> where{" +
+				"?a <http://www.w3.org/2002/12/cal#dtstart> ?startdate .	" +
+				"?a <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?latitude ." +
+				"?a <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?longitude . " +
+				"?a <http://www.w3.org/2000/01/rdf-schema#comment> ?comment . " +
+				"?a <http://www.w3.org/2000/01/rdf-schema#label> ?label. " +
+				"} ORDER BY DESC(?startdate) LIMIT 1";  
+		QueryExecution queryExec = QueryExecutionFactory.sparqlService(SPARQL_ENDPOINT, queryString);
+		  //Query query = QueryFactory.create(queryString) ;
+		  //QueryExecution qexec = QueryExecutionFactory.create(query, rdfGraph) ;
 		  try {
-		    ResultSet results = qexec.execSelect() ;
+		    ResultSet results = queryExec.execSelect() ;
 		    for ( ; results.hasNext() ; )
 		    {
 		      QuerySolution soln = results.nextSolution() ;
-		      RDFNode x = soln.get("?meeting") ;       // Get a result variable by name.
-		      Literal l = soln.getLiteral("?startDate") ;   // Get a result variable - must be a literal
+		      //RDFNode x = soln.get("?meeting") ;       // Get a result variable by name.
+		      //Literal l = soln.getLiteral("?startDate") ;   // Get a result variable - must be a literal
 //		      XSDDatatype test = new Baset
 //		      XSDDateTime time = new XSDDateTime(l.toString(), XSDDateTime.FULL_MASK);
 //		      TODO: msg.setDate(time.asCalendar());
+		      msg.setMeetingComment(soln.getLiteral("?comment").toString());
+		      msg.setMeetingLabel(soln.getLiteral("?label").toString());
 		      msg.setLongitude(soln.getLiteral("?longitude").getDouble());
 		      msg.setLatitude(soln.getLiteral("?latitude").getDouble());
 		    }
-		  } finally { qexec.close() ; }
+		  } finally { queryExec.close() ; }
 		//TODO: return a Meeting and add the text to the query string
 		  return msg;
 	}

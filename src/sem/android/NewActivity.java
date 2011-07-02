@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
-import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
 import com.google.android.maps.OverlayItem;
@@ -25,8 +24,6 @@ import android.widget.Toast;
 public class NewActivity extends MapActivity {
 	// for geopoints
 	private MapView mapView;
-	@SuppressWarnings("unused")
-	private MapController mc;
 	private GeoPoint newMeetingPoint;
 
 	// for my Overlay Icon
@@ -57,7 +54,6 @@ public class NewActivity extends MapActivity {
 		mapView = (MapView) findViewById(R.id.mapview); // get Mapview from
 														// current window
 		mapView.setBuiltInZoomControls(true); // adding Zoom to google maps
-		mc = mapView.getController(); // creating MapController
 
 		// creating an geopoint for testing
 		// TODO comment out
@@ -199,14 +195,30 @@ public class NewActivity extends MapActivity {
 	}
 
 	// just to sum everything up for sending it
-	@SuppressWarnings("unused")
 	protected void sendmeeting() {
+		//check if there is a geopoint clicked
+		if (newMeetingPoint == null){
+			Toast.makeText(
+					getBaseContext(), 
+					"Select a Location first", 
+					Toast.LENGTH_LONG).show();
+			return;
+			
+		}
+		
 		// preparing everything to send
 		GregorianCalendar meetingTime = new GregorianCalendar(mYear, mMonth, mDay, mHour, mMinute, 0);
-
+		
 		// TODO these 2 Strings require Sending
-		String sendString = txtNextMeeting;
-		sparqlApi test = new sparqlApi();
+		MessageMeeting meeting = new MessageMeeting();
+		meeting.setMeetingComment(txtNextMeeting);
+		meeting.setDate(meetingTime);
+		meeting.setLatitude((double) newMeetingPoint.getLatitudeE6() / 1e6);
+		meeting.setLatitude((double) newMeetingPoint.getLongitudeE6() / 1e6);
+		
+		
+		sparqlApi spAPI = new sparqlApi();
+		spAPI.createMeeting(meeting);
 		// newMeetingPoint;
 
 	}

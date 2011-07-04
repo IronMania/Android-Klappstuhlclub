@@ -52,7 +52,6 @@ public class AddMeetingDialog extends Dialog {
 		buttonPickDate = (Button) findViewById(R.id.pickDate);
 		buttonPickTime = (Button) findViewById(R.id.pickTime);
 		editText = (EditText) findViewById(R.id.edittext);
-
 		// listener for all Buttons
 		buttonCancel.setOnClickListener(new View.OnClickListener() {
 
@@ -61,7 +60,7 @@ public class AddMeetingDialog extends Dialog {
 				AddMeetingDialog.this.dismiss();
 			}
 		});
-		buttonPickDate.setOnClickListener(new View.OnClickListener() {
+		buttonPickTime.setOnClickListener(new View.OnClickListener() {
 
 			//@Override
 			public void onClick(View v) {
@@ -69,7 +68,7 @@ public class AddMeetingDialog extends Dialog {
 				timePicker.show();
 			}
 		});
-		buttonPickTime.setOnClickListener(new View.OnClickListener() {
+		buttonPickDate.setOnClickListener(new View.OnClickListener() {
 			//@Override
 			public void onClick(View v) {
 				DatePickerDialog datePicker = new DatePickerDialog(mContext, mDateSetListener, mYear, mMonth, mDay);

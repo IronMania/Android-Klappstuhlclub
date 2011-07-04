@@ -46,6 +46,8 @@ public class NewActivity extends MapActivity {
 	private int mHour;
 	private int mMinute;
 
+	private sparqlApi endPoint;
+	
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -62,6 +64,14 @@ public class NewActivity extends MapActivity {
 		double lng = Double.parseDouble(coordinates[1]);
 		newMeetingPoint = new GeoPoint((int) (lat * 1E6), (int) (lng * 1E6));
 		drawSelectedGeopoint();
+		
+		new Runnable() {
+
+
+			public void run() {
+				endPoint = new sparqlApi();
+			}
+		}.run();
 
 	}
 
@@ -182,7 +192,7 @@ public class NewActivity extends MapActivity {
 					mHour = dialog.getmHour();
 					mMinute = dialog.getmMinute();
 					
-					txtNextMeeting = dialog.getEditText().toString();
+					txtNextMeeting = dialog.getEditText().getText().toString();
 					
 					sendmeeting();
 					dialog.dismiss();
@@ -214,12 +224,9 @@ public class NewActivity extends MapActivity {
 		meeting.setMeetingComment(txtNextMeeting);
 		meeting.setDate(meetingTime);
 		meeting.setLatitude((double) newMeetingPoint.getLatitudeE6() / 1e6);
-		meeting.setLatitude((double) newMeetingPoint.getLongitudeE6() / 1e6);
+		meeting.setLongitude((double) newMeetingPoint.getLongitudeE6() / 1e6);
 		
-		
-		sparqlApi spAPI = new sparqlApi();
-		spAPI.createMeeting(meeting);
-		// newMeetingPoint;
+		endPoint.createMeeting(meeting);
 
 	}
 }

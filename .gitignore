@@ -1,6 +1,6 @@
 ##java specific
 */*.class
-bin/sem/android/*.class
+#bin/sem/android/*.class
 bin/*
  
 ##netbeans ignore personal stuff

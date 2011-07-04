@@ -24,12 +24,12 @@ public class sparqlApi{
 	private final String LOGIN_NAME = "dba";
 	private final String stringPW = "vIGsEcRuGA32";
 
-	private final String propertyStartDate = "http://www.w3.org/2002/12/cal%23dtstart";
-	private final String propertyLat = 	"http://www.w3.org/2003/01/geo/wgs84_pos%23lat";
-	private final String propertyLon = 	"http://www.w3.org/2003/01/geo/wgs84_pos%23long";
-	private final String propertyComment ="http://www.w3.org/2000/01/rdf-schema%23comment" ;
-	private final String propertyLabel = "http://www.w3.org/2000/01/rdf-schema%23label";
-	private final String propertyTreffen = "http://www.w3.org/1999/02/22-rdf-syntax-ns%23type";
+	private final String propertyStartDate = "http://www.w3.org/2002/12/cal#dtstart";
+	private final String propertyLat = 	"http://www.w3.org/2003/01/geo/wgs84_pos#lat";
+	private final String propertyLon = 	"http://www.w3.org/2003/01/geo/wgs84_pos#long";
+	private final String propertyComment ="http://www.w3.org/2000/01/rdf-schema#comment" ;
+	private final String propertyLabel = "http://www.w3.org/2000/01/rdf-schema#label";
+	private final String propertyTreffen = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type";
 	private final String conceptMeeting= "http://www.klappstuhlclub.de/wp/posts/";
 	private final String conceptTreffen = "<http://klappstuhlclub.de/ontology/Treffen>";
 

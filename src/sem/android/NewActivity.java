@@ -226,7 +226,16 @@ public class NewActivity extends MapActivity {
 		meeting.setLatitude((double) newMeetingPoint.getLatitudeE6() / 1e6);
 		meeting.setLongitude((double) newMeetingPoint.getLongitudeE6() / 1e6);
 		
-		endPoint.createMeeting(meeting);
+		if(endPoint.createMeeting(meeting))
+			{
+			//TODO: send meeting to Wordpress
+			}else
+			{
+				Toast.makeText(
+						getBaseContext(), 
+						"couldn't send meeting", 
+						Toast.LENGTH_LONG).show();
+			}
 
 	}
 }

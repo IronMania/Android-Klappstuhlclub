@@ -13,6 +13,8 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.params.AuthPolicy;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import android.R.bool;
+
 import com.hp.hpl.jena.datatypes.xsd.XSDDateTime;
 import com.hp.hpl.jena.query.* ;
 
@@ -36,7 +38,7 @@ public class sparqlApi{
 	public sparqlApi() {
 	}
 
-	public void createMeeting(MessageMeeting meeting) 
+	public boolean createMeeting(MessageMeeting meeting) 
 	{
 		int meetingNumber= getLastMeetingIndex();
 		meetingNumber++;
@@ -76,10 +78,13 @@ public class sparqlApi{
 		} catch (ClientProtocolException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return false;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return false;
 		}
+		return true;
 	}
 
 	public MessageMeeting getNextMeeting()

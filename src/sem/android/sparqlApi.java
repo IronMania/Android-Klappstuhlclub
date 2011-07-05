@@ -52,8 +52,8 @@ public class sparqlApi{
 				createTriple(conceptMeeting + meetingNumber +"-treffen-leipzig", propertyLabel, "\""+meetingNumber + ". Treffen Leipzig\" @de") +
 				createTriple(conceptMeeting + meetingNumber +"-treffen-leipzig", propertyComment,"\""+ meeting.getMeetingComment() + "\"") +
 				createTriple(conceptMeeting + meetingNumber +"-treffen-leipzig", propertyStartDate, "\"%5C\"" + dateString  + "%5C\"^^<http://www.w3.org/2001/XMLSchema#date>\"" ) +
-				createTriple(conceptMeeting + meetingNumber +"-treffen-leipzig", propertyLat, "<" +lat +">") +	
-				createTriple(conceptMeeting + meetingNumber +"-treffen-leipzig", propertyLon, "<" +lon +">") +	
+				createTriple(conceptMeeting + meetingNumber +"-treffen-leipzig", propertyLat, "\"" +lat +"\"") +	
+				createTriple(conceptMeeting + meetingNumber +"-treffen-leipzig", propertyLon, "\"" +lon +"\"") +	
 				"%0A++%7D%0A&debug=on&timeout=&format=text%2Fhtml&save=display&fname=";
 		request = request.replaceAll("#", "%23");
 		request = request.replaceAll("\\^", "%5E");
